@@ -27,7 +27,8 @@
 			class="container row mt-5 text-center pt-5"
 			style="margin-left: auto; margin-right: auto"
 		>
-			<form class="form-inline mb-5">
+			<form class="form-inline mb-5" method="POST" action="{% url 'search' %}">
+				{% csrf_token %}
 				<div class="form-group">
 					<input
 						type="text"

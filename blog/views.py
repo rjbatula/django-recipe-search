@@ -19,3 +19,15 @@ def index(request):
 def specific(request):
   return HttpResponse("This is the specific url")
 
+def search(request):
+  if(request.method == "POST"):
+    userText = request.POST.get('usertext')
+    app_id = config('APP_ID')
+    app_key = config('APP_KEY')
+    response = requests.get('https://api.edamam.com/api/recipes/v2?type=public&q='+userText+'&app_id='+app_id+'&app_key='+app_key)
+    jsonResponse = response.json()
+    recipes = jsonResponse['hits']
+    return render(request, 'blog/index.html', {'recipes': recipes})
+  else:
+    return render(request, 'blog/index.html')
+
